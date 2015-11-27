@@ -80,17 +80,22 @@ public class SourceService extends BaseService {
         String source = null;
         int scr = s.getCurrentScreen();
         Course course = s.getCourse();
+        String message = null;
 
-        if (s.isUser() || s.isChallenge()) {
+        if (!s.isAdmin() || s.isChallenge()) {
 
             AbstractLesson lesson = course.getLesson(s, scr, AbstractLesson.USER_ROLE);
 
             if (lesson != null) {
                 source = lesson.getRawSource(s);
+            } else {
+                message = "Lesson is null";
             }
+        } else {
+            message = "Admin not in a Challenge";
         }
         if (source == null) {
-            return "Source code is not available for this lesson.";
+            return message + ": Source code is not available for this lesson.";
         }
         return (source.replaceAll("(?s)" + START_SOURCE_SKIP + ".*" + END_SOURCE_SKIP,
                 "Code Section Deliberately Omitted"));

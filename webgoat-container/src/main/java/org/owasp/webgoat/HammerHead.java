@@ -276,7 +276,7 @@ public class HammerHead extends HttpServlet {
         int scr = s.getCurrentScreen();
         Course course = s.getCourse();
 
-        if (s.isUser() || s.isChallenge()) {
+        if (!s.isAdmin() || s.isChallenge()) {
             if (scr == WebSession.WELCOME) {
                 screen = new WelcomeScreen(s);
             } else {
@@ -305,7 +305,7 @@ public class HammerHead extends HttpServlet {
                     screen = new ErrorScreen(s, "Invalid screen requested.  Try: http://localhost/WebGoat/attack");
                 }
             }
-        } else if (s.isAdmin()) {
+        } else {
             if (scr == WebSession.WELCOME) {
                 screen = new WelcomeAdminScreen(s);
             } else {

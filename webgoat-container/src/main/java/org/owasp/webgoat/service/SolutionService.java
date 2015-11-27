@@ -72,17 +72,22 @@ public class SolutionService extends BaseService {
         String source = null;
         int scr = s.getCurrentScreen();
         Course course = s.getCourse();
+        String message = null;
 
-        if (s.isUser() || s.isChallenge()) {
+        if (!s.isAdmin() || s.isChallenge()) {
 
             AbstractLesson lesson = course.getLesson(s, scr, AbstractLesson.USER_ROLE);
 
             if (lesson != null) {
                 source = lesson.getSolution(s);
+            } else {
+                message = "Lesson is null";
             }
+        } else {
+            message = "Admin not in a Challenge";
         }
         if (source == null) {
-            return "Solution  is not available. Contact "
+            return message + ": Solution is not available. Contact "
                     + s.getWebgoatContext().getFeedbackAddressHTML();
         }
         return (source);

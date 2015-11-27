@@ -79,7 +79,7 @@ public class LessonPlanService extends BaseService {
         int scr = s.getCurrentScreen();
         Course course = s.getCourse();
 
-        if (s.isUser() || s.isChallenge()) {
+        if (!s.isAdmin() || s.isChallenge()) {
 
             AbstractLesson lesson = course.getLesson(s, scr, AbstractLesson.USER_ROLE);
 

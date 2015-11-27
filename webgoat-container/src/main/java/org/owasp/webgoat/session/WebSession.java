@@ -416,7 +416,7 @@ public class WebSession {
      * @return a {@link java.lang.String} object.
      */
     public String getRestartLink() {
-        return getCurrentLesson().getLink() + "&" + RESTART + "=" + getCurrentScreen();
+        return getCurrentLesson().getServletLink() + "&" + RESTART + "=" + getCurrentScreen();
     }
 
     /**
@@ -828,15 +828,6 @@ public class WebSession {
      */
     public boolean isScreen(int value) {
         return (getCurrentScreen() == value);
-    }
-
-    /**
-     * Gets the user attribute of the WebSession object
-     *
-     * @return The user value
-     */
-    public boolean isUser() {
-        return (!isAdmin && !isChallenge());
     }
 
     /**
